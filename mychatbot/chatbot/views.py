@@ -1,11 +1,25 @@
-from django.http import JsonResponse
+# chatbot/views.py
 from django.shortcuts import render
-from .chatbot_logic import chatbot_response
+from django.http import JsonResponse
+from .transformers_logic import generate_response  # Import the transformers logic
 
 def chatbot_view(request):
-    # If it's a POST request, process user input
+    """Render the main chatbot page"""
+    return render(request, 'chatbot/index.html')
+
+def get_transformers_response(request):
+    """Get a response from GPT-2 based on user input"""
     if request.method == 'POST':
-        user_input = request.POST.get('message')
-        response = chatbot_response(user_input)
-        return JsonResponse({'response': response})
-    return render(request, 'index.html')
+        user_message = request.POST.get('message')
+        
+        # Ensure the message is not empty
+        if not user_message:
+            return JsonResponse({'error': 'Empty message'}, status=400)
+
+        # Generate a response from GPT-2
+        bot_response = generate_response(user_message)  # Generate response from GPT-2
+        
+        return JsonResponse({'response': bot_response})
+    
+    # If it's a GET request, render the chatbot page
+    return render(request, 'chatbot/index.html')

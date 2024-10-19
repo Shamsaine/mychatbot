@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Interface</title>
+    {% csrf_token %}
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'chatbot/styles.css' %}">
+
+</head>
+<body>
+    <div class="chat-container">
+        <header class="chat-header">
+            <h2 id="botheader">Swarmauri Super Assistant</h2>
+        </header>
+
+        <div id="chat-box" class="chat-box">
+            <p id="hiThere">welcome To Swarmauri. We are delighted to have you here and are ready to answer all your questions regarding our platform and operations.</p>
+        </div>
+
+        <div class="chat-input-container">
+            <input type="text" id="input-box" placeholder="Type your message..." />
+            <button id="send-btn" class="send-btn">Send</button>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
